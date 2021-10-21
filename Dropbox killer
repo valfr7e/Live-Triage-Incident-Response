@@ -1,0 +1,15 @@
+taskkill /IM "dropbox.exe" /F /FI "STATUS eq RUNNING"
+taskkill /IM "dbxsvc.exe" /F /FI "STATUS eq RUNNING"
+Remove-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\' -Name dbupdate -force -ErrorAction Ignore
+Remove-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\' -Name dbupdatem -force -ErrorAction Ignore
+Remove-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\' -Name dbx -force -ErrorAction Ignore
+Remove-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\' -Name DbxSvc -force -ErrorAction Ignore
+del "C:\Program Files\Dropbox\*\Dropbox.exe" -force -ErrorAction SilentlyContinue
+del "C:\Users\*\AppData\Local\Dropbox" -force -recurse -ErrorAction SilentlyContinue
+del "C:\Users\*\AppData\Roaming\Dropbox" -force -recurse  -ErrorAction SilentlyContinue
+Unregister-ScheduledTask -TaskName "{1D6DDAC5-E292-4D54-B238-11F632E35B4E}" -Confirm:$false -ErrorAction SilentlyContinue
+Unregister-ScheduledTask -TaskName "{63A2405C-9B7B-422D-A25E-EE3B64D93ADB}" -Confirm:$false -ErrorAction SilentlyContinue
+Unregister-ScheduledTask -TaskName DropboxUpdateTaskMachineCore -Confirm:$false -ErrorAction SilentlyContinue
+Unregister-ScheduledTask -TaskName DropboxUpdateTaskMachineUA -Confirm:$false -ErrorAction SilentlyContinue
+Write-Output "*Succesfuly removed on host:*"
+iex hostname
