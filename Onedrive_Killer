@@ -1,0 +1,26 @@
+*ONEDRIVE KILLER*
+//Tested script to get rid of Microsoft Onedrive. Windows installs a new instance of onedrive everytime you add a new user to the machine, 
+so with this you will never have that problem again.
+
+*Powershell*
+
+Set-ItemProperty -Path "REGISTRY::HKU\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "OneDrive" -Value 0
+$path = "REGISTRY::HKU\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\”
+$values = (Get-Item -Path $path ).GetValueNames() | Where {$_ -like "OneDrive"}
+Remove-ItemProperty -Path $path -Name $values[0] -ErrorAction SilentlyContinue
+Remove-ItemProperty -Path $path -Name $values[1] -ErrorAction SilentlyContinue
+$path = "REGISTRY::HKU\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\”
+$values = (Get-Item -Path $path ).GetValueNames() | Where {$_ -like "OneDriveSetup"}
+Remove-ItemProperty -Path $path -Name $values[0] -ErrorAction SilentlyContinue
+Remove-ItemProperty -Path $path -Name $values[1] -ErrorAction SilentlyContinue
+del "c:\Windows\SysWOW64\OneDriveSetup.exe" -force
+del "c:\Users\*\AppData\Local\Microsoft\OneDrive\OneDrive.exe" -force
+del "c:\Users\*\AppData\Local\Microsoft\OneDrive\OneDriveStandaloneUpdater.exe" -force
+del "c:/Windows/System32/OneDriveSetup.exe" -force
+schtasks /delete /tn "OneDrive Per-Machine Standalone Update Task" /F
+reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\OneDrive Updater Service" /f
+rm -Force -ErrorAction SilentlyContinue "c:\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk"
+Reg Add "HKLM\Software\Policies\Microsoft\Windows\OneDrive" /T REG_DWORD /V "DisableFileSyncNGSC" /D 1 /F
+Reg Add "HKLM\Software\Policies\Microsoft\Windows\OneDrive" /T REG_DWORD /V "DisableFileSync" /D 1 /F
+Reg Add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run" /T REG_BINARY /V "OneDrive" /D 0300000021B9DEB396D7D001 /F
+Get-Service OneSyncSvc | stop-service -passthru | set-service -startuptype disabled 
