@@ -1,0 +1,6 @@
+Write-Output "*EXTENSIONES FIREFOX*"
+Get-ChildItem -path "C:\Users\*\AppData\Roaming\Mozilla\Firefox\Profiles\*\extensions" -recurse -erroraction SilentlyContinue
+Get-ChildItem -path "C:\Program Files\Mozilla Firefox\plugins\" -recurse -erroraction SilentlyContinue
+Get-ChildItem -path registry::HKLM\SOFTWARE\Mozilla\*\extensions
+Write-Output "*EXTENSIONES EDGE*"
+Get-ChildItem -Path C:\Users\*\AppData\Local\Packages\ -recurse -erroraction SilentlyContinue
