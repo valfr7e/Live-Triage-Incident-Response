@@ -1,0 +1,45 @@
+taskkill /f /t /im vncserver.exe
+taskkill /f /t /im AnyDesk.exe
+taskkill /f /t /im winvnc.exe
+taskkill /f /t /im winvnc4.exe
+taskkill /f /t /im TeamViewer_Service.exe
+taskkill /f /t /im TeamViewer.exe
+taskkill /f /t /im tvnserver.exe
+taskkill /f /t /im vncviewer.exe
+taskkill /f /t /im vncservice.exe
+taskkill /f /t /im Dropbox.exe
+taskkill /f /im vlc.exe
+reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\vncserver" /f
+reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\AnyDesk" /f
+reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\uvnc_service" /f
+reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TeamViewer8" /f
+reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TeamViewer9" /f
+reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TeamViewer10" /f
+reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TeamViewer11" /f
+reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TeamViewer" /f
+reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\tvnserver" /f
+del "C:\Program Files\RealVNC\VNC Server\vncserver.exe" -force -recurse
+del "C:\Program Files (x86)\AnyDesk\AnyDesk.exe" -force -recurse
+del "C:\Program Files\uvnc bvba\UltraVNC\WinVNC.exe" -force -recurse
+del "C:\Program Files\RealVNC\VNC4\winvnc4.exe" -force -recurse
+del "C:\Program Files\uvnc bvba\UltraVNC\vncviewer.exe" -force
+del "C:\Program Files\TightVNC\tvnserver.exe" -force
+del "C:\Program Files\RealVNC\VNC Server\vncserverui.exe" -force
+del "C:\Program Files\TeamViewer\Version8\TeamViewer.exe" -force -recurse
+del "C:\Program Files\TeamViewer\Version9\TeamViewer_Service.exe" -force -recurse
+del "C:\Program Files\TeamViewer\Version10\TeamViewer_Service.exe" -force -recurse
+del "C:\Program Files\RealVNC\VNC Server\vncservice.exe" -force -recurse
+del "C:\Program Files\TeamViewer\Version11\TeamViewer_Service.exe" -force -recurse
+del "C:\Program Files (x86)\TeamViewer\TeamViewer_Service.exe" -force -recurse
+del "C:\Program Files (x86)\TeamViewer\TeamViewer.exe" -force -recurse
+del "C:\Program Files (x86)\TeamViewer\tv_w32.exe" -force -recurse
+del "C:\Program Files (x86)\TeamViewer\tv_x64.exe" -force -recurse
+del "C:\Program Files\TeamViewer\TeamViewer_Service.exe" -force -recurse
+del "C:\Program Files\Dropbox\Client\Dropbox.exe" -force -recurse
+del "C:\Program Files (x86)\VideoLAN\VLC\vlc.exe" -force -recurse
+del "C:\Program Files\RealVNC\VNC Server\vncagent.exe" -force -recurse
+del "C:\Program Files\RealVNC\VNC Server\*" -force -recurse
+taskkill /f /t /im AnyDesk.exe
+reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\AnyDesk" /f
+del "c:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\AnyDesk.lnk" -force -recurse -ErrorAction SilentlyContinue
+Remove-Item "c:\Program Files (x86)\AnyDesk\AnyDesk.exe" -force -recurse -ErrorAction SilentlyContinue
