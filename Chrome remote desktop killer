@@ -1,0 +1,13 @@
+Stop-Process -Name remoting_native_messaging_host -Force -ErrorAction Silentlycontinue
+Stop-Process -Name remoting_desktop -Force -ErrorAction Silentlycontinue
+Stop-Process -Name remote_security_key -Force -ErrorAction Silentlycontinue
+Stop-Process -Name remote_assistance_host -Force -ErrorAction Silentlycontinue
+Stop-Process -Name remote_assistance_host_uiaccess -Force -ErrorAction Silentlycontinue
+Stop-Process -Name Chrome -Force -ErrorAction Silentlycontinue
+Write-Output "*Las llaves de registro y ejecutables de Chrome Remote Desktop se eliminaron correctamente en el host:*"
+iex hostname
+Remove-Item "C:\Program Files (x86)\Google\Chrome Remote Desktop\CurrentVersion” -force -recurse -ErrorAction SilentlyContinue
+Remove-Item "C:\Program Files (x86)\Google\Chrome Remote Desktop\*\*” -force -recurse -ErrorAction SilentlyContinue
+Remove-Item "C:\Program Files (x86)\Google\Chrome Remote Desktop” -force -recurse -ErrorAction SilentlyContinue
+Write-Output "*Las llaves de registro y ejecutables de Chrome Remote Desktop se eliminaron correctamente en el host:*"
+iex hostname
