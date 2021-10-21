@@ -1,0 +1,42 @@
+schtasks /delete /tn DnsScan /F
+schtasks /delete /tn WebServers /F
+schtasks /delete /tn Ddrivers /F
+schtasks /delete /tn \Microsoft\Windows\Bluetooths /F
+reg delete 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run\' /v Ddriver /f
+reg delete 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\' /v Ddrive /f
+reg delete 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run\' /v Bluetooths /f
+reg delete 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run\' /v Ddrivers /f
+reg delete 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run\' /v bluetea /f
+reg delete 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run\' /v DnsScan /f
+reg delete 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run\' /v WebServers /f
+reg delete 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\' /v WebServers /f
+reg delete 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\' /v Ddriver /f
+Remove-Item -Path 'c:\windows\temp\svchost.exe' -Force 
+Remove-Item -Path 'c:\windows\SysWOW64\wmiex.exe' -Force
+Remove-Item -Path 'c:\windows\SysWOW64\drivers\svchost.exe' -Force
+Remove-Item -Path 'c:\windows\SysWOW64\drivers\taskmgr.exe' -Force
+del c:\windows\temp\svchost.exe
+del c:\windows\temp\mkatz.ini
+del c:\windows\temp\*.vbs
+del c:\windows\temp\*.bat
+del c:\windows\temp\*.dll
+schtasks /delete /tn "\Microsoft\Windows\Bluetooths" /F
+schtasks /delete /tn bluetea /F 
+schtasks /delete /tn \lkyZmS8pxzB\UGQgr518f2 /F
+schtasks /delete /tn \Microsoft\Windows\cW2wuET\SGtyjn4 /F
+schtasks /delete /tn \Microsoft\Windows\n10DSyUo\r3tSOB /F
+schtasks /delete /tn "E9FckNz5" /F
+schtasks /delete /tn JhGxot5SiX /F 
+schtasks /delete /tn bluetea /F 
+schtasks /delete /tn LA6jeNI /F
+Remove-Item -Path 'C:\Windows\System32\Tasks\Microsoft\Windows\Bluetooths' -Force 
+Remove-Item -Path 'C:\Windows\System32\Tasks\Microsoft\Windows\864arSNXqB' -Force 
+Remove-Item -Path 'C:\Windows\System32\Tasks\Microsoft\Windows\dBtXfJMxwg' -Force 
+schtasks /delete /tn Rtsa1 /F
+schtasks /delete /tn “SE6QGyYbJoT” /F
+schtasks /delete /tn “CcdAkr9” /F
+schtasks /delete /tn “dBtXfJMxwg” /F
+schtasks /delete /tn gVtUFY /F
+schtasks /delete /tn lkyZmS8pxzB /F
+schtasks /delete /tn 864arSNXqB /F
+schtasks /delete /tn gVtUFY\LA6jeNI /F
