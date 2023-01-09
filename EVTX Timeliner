@@ -1,0 +1,38 @@
+#!/usr/bin/env pwsh
+Write-Host " ____   _________  .____   _________________________________________ "
+Write-Host " \   \ /   /  _  \ |    |  \_   _____/\______   \______  \_   _____/ "
+Write-Host "  \   Y   /  /_\  \|    |   |    __)   |       _/   /    /|    __)_ "
+Write-Host "   \     /    |    \    |___|     \    |    |   \  /    / |        \ "
+Write-Host "    \___/\____|__  /_______ \___  /    |____|_  / /____/ /________ / "
+Write-Host "       Timeliner by Valfre Martinez"
+Write-Host
+
+Write-Host "Este script realizará la extracción de *evtx del sistema y los colocara en una linea de tiempo"
+Write-Host "El proceso podría demorar un tiempo considerable."
+Write-Host "Presione una tecla para continuar..."
+
+$null = Read-Host
+
+
+$appEvents = Get-WinEvent -LogName 'Application' | Select-Object -First 10000
+$securityEvents = Get-WinEvent -LogName 'Security' | Select-Object -First 10000
+$systemEvents = Get-WinEvent -LogName 'System' | Select-Object -First 10000
+
+$timeline = @()
+
+$count = 1
+
+foreach ($event in $appEvents + $securityEvents + $systemEvents) {
+  
+    Write-Progress -Activity "Progreso" -Status "$count de $($appEvents.Count + $securityEvents.Count + $systemEvents.Count) eventos procesados" -PercentComplete ($count / ($appEvents.Count + $securityEvents.Count + $systemEvents.Count) * 100)
+
+    $timeline += [PSCustomObject]@{
+        Time = $event.TimeCreated
+        Message = $event.Message
+        Source = $event.LogName
+    }
+
+    $count++
+}
+
+$timeline | Export-Csv -Path 'temp_linesr.csv' -NoTypeInformation
