@@ -1,0 +1,35 @@
+#!/usr/bin/env pwsh
+Write-Host " ____   _________  .____   _________________________________________ "
+Write-Host " \   \ /   /  _  \ |    |  \_   _____/\______   \______  \_   _____/ "
+Write-Host "  \   Y   /  /_\  \|    |   |    __)   |       _/   /    /|    __)_ "
+Write-Host "   \     /    |    \    |___|     \    |    |   \  /    / |        \ "
+Write-Host "    \___/\____|__  /_______ \___  /    |____|_  / /____/ /________ / "
+Write-Host "       Timeliner v 2.0 by Valfre Martinez"
+Write-Host
+
+Write-Host "Este script realizará la extracción de *evtx del sistema y los colocara en una linea de tiempo"
+Write-Host "El proceso podría demorar un tiempo considerable."
+Write-Host "Presione una tecla para continuar..."
+
+$null = Read-Host
+
+
+$path = "C:\Logs"
+$timeline = @()
+
+# Obtener archivos EVTX en el directorio especificado
+$evtxFiles = Get-ChildItem -Path $path -Filter *.evtx
+
+# Convertir cada archivo EVTX a un objeto de evento y agregarlo a la línea de tiempo
+foreach ($file in $evtxFiles) {
+  $events = Get-WinEvent -Path $file.FullName
+  $timeline += $events
+}
+
+# Filtrar la línea de tiempo por rango de tiempo (opcional)
+$startTime = [datetime]"01/01/2022 00:00:00"
+$endTime = [datetime]"01/31/2022 23:59:59"
+$timeline = $timeline | Where-Object { $_.TimeCreated -ge $startTime -and $_.TimeCreated -le $endTime }
+
+# Convertir la línea de tiempo a CSV y guardar en un archivo
+$timeline | Export-Csv -Path "C:\timeline.csv" -NoTypeInformation
