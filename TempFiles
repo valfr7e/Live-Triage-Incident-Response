@@ -1,0 +1,47 @@
+#!/usr/bin/env pwsh
+Write-Host " ____   _________  .____   _________________________________________ "
+Write-Host " \   \ /   /  _  \ |    |  \_   _____/\______   \______  \_   _____/ "
+Write-Host "  \   Y   /  /_\  \|    |   |    __)   |       _/   /    /|    __)_ "
+Write-Host "   \     /    |    \    |___|     \    |    |   \  /    / |        \ "
+Write-Host "    \___/\____|__  /_______ \___  /    |____|_  / /____/ /________ / "
+Write-Host "       Temp Files Analyze by Valfre Martinez"
+Write-Host
+
+Write-Host "Este script obtendra una lista de archivos temporales en windows con su respectivo path y hash SHA256"
+Write-Host "El proceso podría demorar un tiempo considerable."
+Write-Host "Presione una tecla para continuar..."
+
+$null = Read-Host
+
+# Get all files in the Windows temporary folders
+$files = Get-ChildItem -Recurse -Path $env:TEMP, $env:TMP | Where-Object { !$_.PSIsContainer }
+
+# Create an array to hold the output data
+$output = @()
+
+# Iterate through each file
+foreach ($file in $files) {
+    Try {
+        # Calculate the SHA256 hash of the file
+        $sha256 = (Get-FileHash -Path $file.FullName -Algorithm SHA256).Hash
+
+        # Create an object to hold the output data for the current file
+        $obj = [pscustomobject]@{
+            'File Name' = $file.Name
+            'Extension' = $file.Extension
+            'Path' = $file.FullName
+            'SHA256' = $sha256
+            'Creation Date' = $file.CreationTime
+        }
+
+        # Add the object to the output array
+        $output += $obj
+    }
+    Catch {
+        # Skip the current file if an error occurs
+        continue
+    }
+}
+
+# Export the output data to a CSV file
+$output | Export-Csv -Path C:\Temp\HashValues.csv -NoTypeInformation
